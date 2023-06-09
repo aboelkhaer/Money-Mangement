@@ -8,6 +8,7 @@ class HomeScreen extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+        backgroundColor: Colors.grey[100],
         floatingActionButton: FloatingActionButton(
           onPressed: () => controller.modalBottomSheetMenu(context),
           backgroundColor: AppColors.skipButton,
@@ -15,7 +16,6 @@ class HomeScreen extends GetView<HomeController> {
             Icons.add,
             size: 35,
           ),
-          //params
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: AnimatedBottomNavigationBar(
@@ -30,11 +30,9 @@ class HomeScreen extends GetView<HomeController> {
           activeColor: Colors.amber,
           gapLocation: GapLocation.center,
           notchSmoothness: NotchSmoothness.verySmoothEdge,
-
           onTap: (index) {
             controller.bottomNavIndex.value = index;
           },
-          //other params
         ),
         body: controller.bottomNavIndex.value == 0
             ? Stack(
@@ -68,13 +66,13 @@ class HomeScreen extends GetView<HomeController> {
                                 child: Text('Overview',
                                     style: TextStyle(fontSize: 17))),
                             Tab(
-                                child: Text('Transaction',
-                                    style: TextStyle(fontSize: 17))),
-                            Tab(
-                                child: Text('Invoices',
+                                child: Text('Transactions',
                                     style: TextStyle(fontSize: 17))),
                             Tab(
                                 child: Text('Statistics',
+                                    style: TextStyle(fontSize: 17))),
+                            Tab(
+                                child: Text('Charts',
                                     style: TextStyle(fontSize: 17))),
                           ],
                         ),
@@ -84,8 +82,8 @@ class HomeScreen extends GetView<HomeController> {
                           controller: controller.tabController,
                           children: const [
                             OverviewTab(),
-                            Icon(Icons.directions_bike),
-                            Icon(Icons.movie),
+                            TransactionsScreen(),
+                            StatisticsTab(),
                             Icon(Icons.music_video),
                           ],
                         ),

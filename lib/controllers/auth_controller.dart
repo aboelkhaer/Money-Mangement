@@ -5,9 +5,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:money_mangement/exports.dart';
 
 class AuthController extends GetxController {
+  RxBool isAuthLoading = false.obs;
   @override
   void onInit() {
-    displayName = userProfile != null ? userProfile!.displayName! : '';
+    user = Rx<User?>(auth.currentUser);
+    user.bindStream(auth.userChanges());
+    // displayName = userProfile != null ? userProfile!.displayName! : '';
+    displayName = user.value != null ? user.value!.displayName! : '';
+
     super.onInit();
   }
 
@@ -15,11 +20,13 @@ class AuthController extends GetxController {
   var googleAccount = Rx<GoogleSignInAccount?>(null);
   final _googleSignIn = GoogleSignIn();
   var displayName = '';
-  User? get userProfile => auth.currentUser;
+  // User? get userProfile => auth.currentUser;
+  late Rx<User?> user;
 
   RxBool isSignIn = false.obs;
 
   signInWithGoogle() async {
+    isAuthLoading.value = true;
     try {
       googleAccount.value = await GoogleSignIn().signIn();
       displayName = googleAccount.value!.displayName!;
@@ -33,8 +40,10 @@ class AuthController extends GetxController {
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
       isSignIn.value = true;
+      isAuthLoading.value = false;
       Get.offAndToNamed(AppRoutes.goToHomeRoute());
     } catch (e) {
+      isAuthLoading.value = false;
       if (e.toString() == 'Null check operator used on a null value') {
         return Get.snackbar(
           'Authentication',

@@ -14,13 +14,9 @@ class OverviewTab extends StatelessWidget {
         children: [
           const OverViewCard(
             isTotalBalance: true,
-            totalBalance: '2000',
           ),
           const OverViewCard(
-            totalBalance: '3000',
             isTotalBalance: false,
-            totalIncome: '30000',
-            totalExpense: '4000',
             totalExpensePercent: '10.3',
             totalIncomePercent: '22.3',
           ),

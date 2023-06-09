@@ -9,7 +9,6 @@ class HeaderRow extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    log(controller.authController.userProfile!.photoURL.toString());
     return Positioned(
       top: SizeConfig.setHeight(context, 0.1),
       right: 0,
@@ -32,7 +31,7 @@ class HeaderRow extends GetView<HomeController> {
                         placeholder: const AssetImage(AppImages.photoClr),
                         placeholderFit: BoxFit.cover,
                         image: NetworkImage(
-                          controller.authController.userProfile!.photoURL!,
+                          controller.authController.user.value!.photoURL!,
                         ),
                       ),
                     ),
@@ -51,23 +50,33 @@ class HeaderRow extends GetView<HomeController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   backgroundColor: Colors.white24,
                   radius: 25,
-                  child: Icon(
-                    Icons.search,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                ),
-                SizedBox(width: SizeConfig.setWidth(context, 0.02)),
-                const CircleAvatar(
-                  backgroundColor: Colors.white24,
-                  radius: 25,
-                  child: Icon(
-                    Icons.notifications_none,
-                    color: Colors.white,
-                    size: 30,
+                  child: Obx(
+                    () => IconButton(
+                      onPressed: () {
+                        if (controller.isNotification.value == false) {
+                          controller.isNotification.value = true;
+                          log('turn to true');
+
+                          NotificationService().showNotification(
+                              title: 'Money Management',
+                              body:
+                                  'Don\'t forget to write your transactions.');
+                        } else {
+                          controller.isNotification.value = false;
+                        }
+                      },
+                      icon: Icon(
+                        controller.isNotification.value
+                            ? Icons.notifications_active
+                            : Icons.notifications_none,
+                        //  Icons.notifications_active,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                    ),
                   ),
                 ),
               ],

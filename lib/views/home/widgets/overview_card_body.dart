@@ -40,9 +40,10 @@ class OverviewCardBody extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8, bottom: 28),
               child: Text(
                 money.toString(),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
+                  color: isIncome ? Colors.green : Colors.red,
                 ),
               ),
             ),
@@ -55,10 +56,13 @@ class OverviewCardBody extends StatelessWidget {
                     Icons.arrow_circle_up,
                     color: Colors.green,
                   )
-                : const Icon(Icons.arrow_drop_down_circle_outlined),
+                : const Icon(
+                    Icons.arrow_circle_down,
+                    color: Colors.red,
+                  ),
             const SizedBox(width: 4),
             Text(
-              isIncome ? '+$percent' : '-$percent',
+              isIncome ? '+$percent%' : '-$percent%',
               style: TextStyle(
                 color: isIncome ? Colors.green : Colors.red.shade800,
                 fontWeight: FontWeight.w600,
