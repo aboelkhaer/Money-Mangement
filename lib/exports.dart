@@ -36,3 +36,8 @@ export 'core/services/notification/notification.dart';
 export 'views/home/widgets/home_tabs/statistics_tab.dart';
 export 'package:fl_chart/fl_chart.dart';
 export 'views/home/widgets/income_expense_charts.dart';
+export 'views/auth/widgets/custom_text_form_field.dart';
+export 'views/home/setting_screen.dart';
+export 'views/home/widgets/profile_pic_with_frame.dart';
+export 'views/home/widgets/profile_pic.dart';
+export 'package:money_mangement/firebase_options.dart';

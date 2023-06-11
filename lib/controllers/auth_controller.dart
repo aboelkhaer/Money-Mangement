@@ -1,19 +1,40 @@
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:money_mangement/exports.dart';
 
 class AuthController extends GetxController {
   RxBool isAuthLoading = false.obs;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
+
   @override
   void onInit() {
     user = Rx<User?>(auth.currentUser);
     user.bindStream(auth.userChanges());
+
     // displayName = userProfile != null ? userProfile!.displayName! : '';
     displayName = user.value != null ? user.value!.displayName! : '';
+    // SchedulerBinding.instance.addPostFrameCallback((_) {
+    //   if (auth.currentUser != null) {
+    //     Get.toNamed(AppRoutes.goToHomeRoute());
+    //   }
+    // });
 
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    emailController.dispose();
+    passwordController.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    super.onClose();
   }
 
   FirebaseAuth auth = FirebaseAuth.instance;

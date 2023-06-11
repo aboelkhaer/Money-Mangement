@@ -66,8 +66,8 @@ class NotificationService {
   scheduleNotification(int hour, int minutes) async {
     await notificationsPlugin.zonedSchedule(
       0,
-      'Money Management',
-      'Don\'t forget to add your transactions.',
+      'Money Mangement',
+      'Transaction reminder has been activated.',
       _convertTime(hour, minutes),
       const NotificationDetails(
           android: AndroidNotificationDetails(

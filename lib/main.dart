@@ -1,9 +1,15 @@
-import 'package:money_mangement/firebase_options.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 import 'exports.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // await Permission.notification.isDenied.then((value) {
+  //   if (value) {
+  //     Permission.notification.request();
+  //   }
+  // });
   NotificationService().initNotification();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

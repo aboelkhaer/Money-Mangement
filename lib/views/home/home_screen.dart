@@ -72,7 +72,7 @@ class HomeScreen extends GetView<HomeController> {
                                 child: Text('Statistics',
                                     style: TextStyle(fontSize: 17))),
                             Tab(
-                                child: Text('Charts',
+                                child: Text('analysis',
                                     style: TextStyle(fontSize: 17))),
                           ],
                         ),
@@ -92,7 +92,7 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                 ],
               )
-            : Container(),
+            : const SettingScreen(),
       ),
     );
   }

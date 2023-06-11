@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money_mangement/exports.dart';
 
 class TransactionModel extends Equatable {
+  final String? id;
   final String? transactionType;
   final String? transactionCategory;
   final String? money;
   final Timestamp? date;
   const TransactionModel({
+    required this.id,
     required this.transactionType,
     required this.transactionCategory,
     required this.money,
@@ -15,6 +17,7 @@ class TransactionModel extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         transactionCategory,
         transactionType,
         money,
@@ -22,6 +25,7 @@ class TransactionModel extends Equatable {
       ];
 
   Map<String, dynamic> toMap() => {
+        'transaction_id': id,
         'transaction_type': transactionType,
         'transaction_category': transactionCategory,
         'date': date,
@@ -40,6 +44,7 @@ class TransactionModel extends Equatable {
       money: doc.data().toString().contains('money')
           ? doc.get('money')
           : '', //String
+      id: doc.id,
       date: doc.data().toString().contains('date')
           ? doc.get('date')
           : null, //String

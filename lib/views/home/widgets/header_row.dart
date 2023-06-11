@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:money_mangement/exports.dart';
 
 class HeaderRow extends GetView<HomeController> {
@@ -20,22 +18,9 @@ class HeaderRow extends GetView<HomeController> {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  backgroundColor: Colors.white24,
-                  radius: 30,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white54,
-                    radius: 23,
-                    child: ClipOval(
-                      child: FadeInImage(
-                        placeholder: const AssetImage(AppImages.photoClr),
-                        placeholderFit: BoxFit.cover,
-                        image: NetworkImage(
-                          controller.authController.user.value!.photoURL!,
-                        ),
-                      ),
-                    ),
-                  ),
+                ProfilePicWithFrame(
+                  picture: controller.authController.user.value!.photoURL!,
+                  radius: 23,
                 ),
                 SizedBox(width: SizeConfig.setWidth(context, 0.02)),
                 Text(
@@ -58,12 +43,9 @@ class HeaderRow extends GetView<HomeController> {
                       onPressed: () {
                         if (controller.isNotification.value == false) {
                           controller.isNotification.value = true;
-                          log('turn to true');
 
                           NotificationService().showNotification(
-                              title: 'Money Management',
-                              body:
-                                  'Don\'t forget to write your transactions.');
+                              title: 'iMoney', body: 'Daily reminder is set.');
                         } else {
                           controller.isNotification.value = false;
                         }

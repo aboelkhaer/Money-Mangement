@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:money_mangement/exports.dart';
-import 'package:workmanager/workmanager.dart';
+import 'package:money_mangement/models/category_model.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
   FirebaseFirestore firebasefirestore = FirebaseFirestore.instance;
@@ -13,19 +13,27 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   RxBool isAddTransactionLoading = false.obs;
   TextEditingController moneyController = TextEditingController();
   late CollectionReference allTransactionReference;
+  late CollectionReference allCategoriesReference;
   RxList<TransactionModel> allTransactions = RxList<TransactionModel>([]);
+  RxList<CategoryModel> allCategories = RxList<CategoryModel>([]);
+  RxList<String> allCategoriesName = RxList<String>([]);
   RxInt totalIncome = 0.obs;
   RxInt totalExpense = 0.obs;
   RxInt totalBalance = 0.obs;
   // RxList<TransactionModel> incomeTransaction = RxList<TransactionModel>([]);
   Timer? timer;
   RxBool isNotification = false.obs;
+  late DocumentReference docRef;
 
   @override
   void onInit() {
     tabController = TabController(vsync: this, length: 4);
     allTransactionReference = firebasefirestore.collection('transactions');
+    allCategoriesReference = firebasefirestore.collection('category');
     allTransactions.bindStream(getAllTransactions());
+    allCategories.bindStream(getAllCategories());
+    test();
+
     timer =
         Timer.periodic(const Duration(minutes: 2), (Timer t) => totalTypes());
     allTransactions.listen((p0) {
@@ -33,6 +41,12 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     });
 
     super.onInit();
+  }
+
+  test() {
+    for (var element in allCategories) {
+      allCategoriesName.add(element.name!);
+    }
   }
 
   @override
@@ -85,7 +99,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
         moneyController.text.isNumericOnly == true &&
         moneyController.text.isNotEmpty) {
       try {
-        var result = await firebasefirestore.collection('transactions').add({
+        var result = await allTransactionReference.add({
           'date': DateTime.now(),
           'transaction_type': transactionType,
           'transaction_category': transactionCategory,
@@ -114,10 +128,20 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   getAllTransactions() {
     return allTransactionReference
         .orderBy('date', descending: true)
+        .where('user_id', isEqualTo: authController.user.value!.uid)
         .snapshots()
         .map((qShot) => qShot.docs
             .map((doc) => TransactionModel.fromDocument(doc))
             .toList());
+  }
+
+  deleteTransaction(String id) {
+    allTransactionReference.doc(id).delete().whenComplete(() => log('done'));
+  }
+
+  getAllCategories() {
+    return allCategoriesReference.snapshots().map((qShot) =>
+        qShot.docs.map((doc) => CategoryModel.fromDocument(doc)).toList());
   }
 
   String getTimeDifferenceFromNow(DateTime dateTime) {
