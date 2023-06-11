@@ -131,8 +131,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                             );
                             if (controller.tabIndex.value ==
                                 controller.tabsLenght - 1) {
-                              Navigator.pushReplacementNamed(
-                                  context, AppRoutes.goToHomeRoute());
+                              Get.toNamed(AppRoutes.goToAuthRoute());
                             }
                           },
                           title: controller.tabIndex.value ==

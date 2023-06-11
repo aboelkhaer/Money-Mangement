@@ -4,10 +4,10 @@ class AppRoutes {
   static const String _homeScreen = '/homeScreen';
   static String goToHomeRoute() => _homeScreen;
 
-  static const String _authScreen = '/';
+  static const String _authScreen = '/authScreen';
   static String goToAuthRoute() => _authScreen;
 
-  static const String _onboardingScreen = '/onboardingScreen';
+  static const String _onboardingScreen = '/';
   static String goToOnboardingRoute() => _onboardingScreen;
 
   static List<GetPage> routes = [

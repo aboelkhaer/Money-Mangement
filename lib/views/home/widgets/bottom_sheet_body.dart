@@ -48,6 +48,7 @@ class BottomSheetBody extends GetView<HomeController> {
                     child: CustomRadioButton(
                       elevation: 0,
                       absoluteZeroSpacing: true,
+                      
                       unSelectedColor: Colors.white,
                       unSelectedBorderColor: AppColors.skipButton,
                       buttonLables: const [
@@ -68,6 +69,7 @@ class BottomSheetBody extends GetView<HomeController> {
                         controller.transactionType = value;
                         controller.focusNode.unfocus();
                       },
+                      
                       selectedColor: AppColors.skipButton,
                     ),
                   ),

@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:money_mangement/exports.dart';
 

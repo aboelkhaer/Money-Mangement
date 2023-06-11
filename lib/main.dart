@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return GetMaterialApp(
-      title: 'Money Mangement',
+      title: 'iMoney',
       debugShowCheckedModeBanner: false,
       getPages: AppRoutes.routes,
     );
