@@ -82,6 +82,20 @@ class SettingScreen extends GetView<HomeController> {
                         ),
                       ),
                     ),
+                    InkWell(
+                      onTap: () => Get.toNamed(
+                        AppRoutes.goToCategoriesRoute(),
+                        arguments: controller.userCategories,
+                      ),
+                      child: const ListTile(
+                        title: Text(
+                          'Categories',
+                        ),
+                        leading: Icon(
+                          Icons.category_outlined,
+                        ),
+                      ),
+                    ),
                     SizedBox(height: SizeConfig.setHeight(context, 0.05)),
                     Row(
                       children: [

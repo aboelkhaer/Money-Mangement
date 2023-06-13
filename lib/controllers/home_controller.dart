@@ -16,11 +16,12 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   late CollectionReference allCategoriesReference;
   RxList<TransactionModel> allTransactions = RxList<TransactionModel>([]);
   RxList<CategoryModel> allCategories = RxList<CategoryModel>([]);
-  RxList<String> allCategoriesName = RxList<String>([]);
+  RxList<CategoryModel> userCategories = RxList<CategoryModel>([]);
+  List<String> allCategoriesName = [];
+
   RxInt totalIncome = 0.obs;
   RxInt totalExpense = 0.obs;
   RxInt totalBalance = 0.obs;
-  // RxList<TransactionModel> incomeTransaction = RxList<TransactionModel>([]);
   Timer? timer;
   RxBool isNotification = false.obs;
   late DocumentReference docRef;
@@ -32,8 +33,9 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     allCategoriesReference = firebasefirestore.collection('category');
     allTransactions.bindStream(getAllTransactions());
     allCategories.bindStream(getAllCategories());
-    test();
 
+    userCategories.bindStream(getUserCategories());
+    // sortedCategoryName();
     timer =
         Timer.periodic(const Duration(minutes: 2), (Timer t) => totalTypes());
     allTransactions.listen((p0) {
@@ -41,12 +43,6 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     });
 
     super.onInit();
-  }
-
-  test() {
-    for (var element in allCategories) {
-      allCategoriesName.add(element.name!);
-    }
   }
 
   @override
@@ -139,9 +135,21 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     allTransactionReference.doc(id).delete().whenComplete(() => log('done'));
   }
 
+  getUserCategories() {
+    return allCategoriesReference
+        .orderBy('date', descending: true)
+        .where('user_id', isEqualTo: authController.user.value!.uid)
+        .snapshots()
+        .map((qShot) =>
+            qShot.docs.map((doc) => CategoryModel.fromDocument(doc)).toList());
+  }
+
   getAllCategories() {
-    return allCategoriesReference.snapshots().map((qShot) =>
-        qShot.docs.map((doc) => CategoryModel.fromDocument(doc)).toList());
+    return allCategoriesReference
+        .orderBy('date', descending: false)
+        .snapshots()
+        .map((qShot) =>
+            qShot.docs.map((doc) => CategoryModel.fromDocument(doc)).toList());
   }
 
   String getTimeDifferenceFromNow(DateTime dateTime) {

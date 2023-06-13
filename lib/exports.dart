@@ -41,3 +41,5 @@ export 'views/home/setting_screen.dart';
 export 'views/home/widgets/profile_pic_with_frame.dart';
 export 'views/home/widgets/profile_pic.dart';
 export 'package:money_mangement/firebase_options.dart';
+export 'package:money_mangement/models/onboarding_model.dart';
+export 'views/category/category_screen.dart';

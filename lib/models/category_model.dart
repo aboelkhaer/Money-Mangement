@@ -2,26 +2,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money_mangement/exports.dart';
 
 class CategoryModel extends Equatable {
+  final String? id;
   final String? name;
   final String? counterUsage;
   final Timestamp? date;
-  const CategoryModel({
-    this.name,
-    this.counterUsage,
-    this.date,
-  });
+  final String? userID;
+  final bool? isGeneral;
+  const CategoryModel(
+      {required this.name,
+      required this.id,
+      required this.counterUsage,
+      required this.date,
+      required this.isGeneral,
+      required this.userID});
 
   @override
   List<Object?> get props => [
         name,
         counterUsage,
         date,
+        userID,
+        isGeneral,
+        id,
       ];
 
   Map<String, dynamic> toMap() => {
         'category_name': name,
         'counter_usage': counterUsage,
         'date': date,
+        'user_id': userID,
+        'is_general': isGeneral,
       };
 
   factory CategoryModel.fromDocument(DocumentSnapshot doc) {
@@ -35,6 +45,13 @@ class CategoryModel extends Equatable {
       date: doc.data().toString().contains('date')
           ? doc.get('date')
           : '', //String
+      userID: doc.data().toString().contains('user_id')
+          ? doc.get('user_id')
+          : '', //String
+      isGeneral: doc.data().toString().contains('is_general')
+          ? doc.get('is_general')
+          : true, //Boolean
+      id: doc.id, //String
 
       // amount: doc.data().toString().contains('amount') ? doc.get('amount') : 0,//Number
       // enable: doc.data().toString().contains('enable') ? doc.get('enable') : false,//Boolean

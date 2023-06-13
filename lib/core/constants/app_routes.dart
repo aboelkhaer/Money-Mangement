@@ -1,3 +1,4 @@
+import 'package:money_mangement/core/bindings/categories_binding.dart';
 import 'package:money_mangement/exports.dart';
 
 class AppRoutes {
@@ -9,6 +10,9 @@ class AppRoutes {
 
   static const String _onboardingScreen = '/';
   static String goToOnboardingRoute() => _onboardingScreen;
+
+  static const String _categoriesScreen = '/categories';
+  static String goToCategoriesRoute() => _categoriesScreen;
 
   static List<GetPage> routes = [
     GetPage(
@@ -24,5 +28,10 @@ class AppRoutes {
         page: () => const AuthScreen(),
         name: _authScreen,
         binding: AuthBinding()),
+    GetPage(
+        page: () => const CategoriesScreen(),
+        name: _categoriesScreen,
+        // transition: Transition.size,
+        binding: CategoriesBinding()),
   ];
 }

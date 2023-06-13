@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '440540263422',
     projectId: 'money-mangement-5939e',
     storageBucket: 'money-mangement-5939e.appspot.com',
-    iosClientId: '440540263422-rma4pi02lfsla7nac1l0r5fm64c8k4pd.apps.googleusercontent.com',
-    iosBundleId: 'com.example.moneyMangement',
+    iosClientId:
+        '440540263422-rma4pi02lfsla7nac1l0r5fm64c8k4pd.apps.googleusercontent.com',
+    iosBundleId: 'com.imoney.imoney',
   );
 }

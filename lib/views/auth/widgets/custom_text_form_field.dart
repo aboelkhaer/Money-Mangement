@@ -20,6 +20,7 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         focusNode: focusNode,
         keyboardType: textInputType,
+        controller: textEditingController,
         obscureText: title == 'Password' ? true : false,
         decoration: InputDecoration(
           hintText: title,

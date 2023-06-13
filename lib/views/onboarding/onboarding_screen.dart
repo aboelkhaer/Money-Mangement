@@ -10,7 +10,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
       statusBarBrightness: Brightness.dark,
     ));
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: Colors.white,
       body: Obx(
         () => Stack(
           children: [
@@ -22,27 +22,42 @@ class OnboardingScreen extends GetView<OnboardingController> {
               },
               itemBuilder: (context, index) {
                 return Container(
+                  alignment: Alignment.topCenter,
                   margin: EdgeInsets.only(
                       bottom: SizeConfig.setHeight(context, 0.17)),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: SizeConfig.setHeight(context, 0.2),
+                      ),
                       Image.asset(
-                        AppImages.onboarding1,
+                        controller.onboardingBody[index].image,
                         height: SizeConfig.setHeight(context, 0.3),
                         width: double.infinity,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                       ),
                       SizedBox(height: SizeConfig.setHeight(context, 0.08)),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          children: const [
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
                             Text(
-                              'Mange your\nfinances more\neasier with\nmy app.',
+                              controller.onboardingBody[index].title,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 33,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              controller.onboardingBody[index].description,
+                              textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 50,
+                                color: Colors.grey.shade600,
+                                fontSize: 20,
                               ),
                             ),
                           ],
@@ -69,14 +84,14 @@ class OnboardingScreen extends GetView<OnboardingController> {
                           Container(
                             width: SizeConfig.setWidth(context, 0.05),
                             height: 2,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                           const SizedBox(width: 14),
                           const Text(
                             'Explore our best feature',
                             style: TextStyle(
                               fontSize: 16,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           ),
                         ],
@@ -87,8 +102,8 @@ class OnboardingScreen extends GetView<OnboardingController> {
                         decorator: DotsDecorator(
                           size: const Size.square(7.0),
                           activeSize: const Size(18.0, 9.0),
-                          color: Colors.white30,
-                          activeColor: Colors.white,
+                          color: Colors.black54,
+                          activeColor: Colors.black,
                           activeShape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           ),

@@ -48,7 +48,6 @@ class BottomSheetBody extends GetView<HomeController> {
                     child: CustomRadioButton(
                       elevation: 0,
                       absoluteZeroSpacing: true,
-                      
                       unSelectedColor: Colors.white,
                       unSelectedBorderColor: AppColors.skipButton,
                       buttonLables: const [
@@ -69,7 +68,6 @@ class BottomSheetBody extends GetView<HomeController> {
                         controller.transactionType = value;
                         controller.focusNode.unfocus();
                       },
-                      
                       selectedColor: AppColors.skipButton,
                     ),
                   ),
@@ -91,36 +89,32 @@ class BottomSheetBody extends GetView<HomeController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Flexible(
-                    child: CustomRadioButton(
-                      elevation: 0,
-                      absoluteZeroSpacing: true,
-                      unSelectedColor: Colors.white,
-                      unSelectedBorderColor: AppColors.skipButton,
-                      autoWidth: true,
-                      buttonLables: const [
-                        'Salary',
-                        'Food',
-                        'Public transport',
-                        'Shopping',
-                      ],
-                      buttonValues: const [
-                        'Salary',
-                        'Food',
-                        'Public transport',
-                        'Shopping',
-                      ],
-                      enableShape: true,
-                      margin: const EdgeInsets.only(left: 16),
-                      buttonTextStyle: const ButtonTextStyle(
-                          selectedColor: Colors.white,
-                          unSelectedColor: Colors.black,
-                          textStyle: TextStyle(fontSize: 16)),
-                      radioButtonValue: (value) {
-                        controller.transactionCategory = value;
-                        controller.focusNode.unfocus();
-                      },
-                      selectedColor: AppColors.skipButton,
+                  Obx(
+                    () => Flexible(
+                      child: CustomRadioButton(
+                        elevation: 0,
+                        absoluteZeroSpacing: true,
+                        unSelectedColor: Colors.white,
+                        unSelectedBorderColor: AppColors.skipButton,
+                        autoWidth: true,
+                        buttonLables: controller.allCategories
+                            .map((e) => e.name!)
+                            .toList(),
+                        buttonValues: controller.allCategories
+                            .map((e) => e.name!)
+                            .toList(),
+                        enableShape: true,
+                        margin: const EdgeInsets.only(left: 16),
+                        buttonTextStyle: const ButtonTextStyle(
+                            selectedColor: Colors.white,
+                            unSelectedColor: Colors.black,
+                            textStyle: TextStyle(fontSize: 16)),
+                        radioButtonValue: (value) {
+                          controller.transactionCategory = value;
+                          controller.focusNode.unfocus();
+                        },
+                        selectedColor: AppColors.skipButton,
+                      ),
                     ),
                   ),
                 ],
