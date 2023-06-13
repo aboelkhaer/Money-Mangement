@@ -1,7 +1,8 @@
 import 'package:money_mangement/exports.dart';
 
 class BottomSheetBody extends GetView<HomeController> {
-  const BottomSheetBody({super.key});
+  final String? defaultChoice;
+  const BottomSheetBody(this.defaultChoice, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +49,7 @@ class BottomSheetBody extends GetView<HomeController> {
                     child: CustomRadioButton(
                       elevation: 0,
                       absoluteZeroSpacing: true,
+                      defaultSelected: defaultChoice,
                       unSelectedColor: Colors.white,
                       unSelectedBorderColor: AppColors.skipButton,
                       buttonLables: const [

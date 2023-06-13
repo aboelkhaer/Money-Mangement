@@ -70,7 +70,12 @@ class OverViewCard extends GetView<HomeController> {
                             icon: const Icon(
                               Icons.track_changes,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              controller.modalBottomSheetMenu(
+                                context,
+                                'Income',
+                              );
+                            },
                             label: const Text('Add Income'),
                           ),
                         ),
@@ -86,7 +91,10 @@ class OverViewCard extends GetView<HomeController> {
                             icon: const Icon(
                               Icons.track_changes,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              controller.modalBottomSheetMenu(
+                                  context, 'Expense');
+                            },
                             label: const Text('Add Expense'),
                           ),
                         ),

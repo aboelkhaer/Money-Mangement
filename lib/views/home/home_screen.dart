@@ -10,7 +10,7 @@ class HomeScreen extends GetView<HomeController> {
       () => Scaffold(
         backgroundColor: Colors.grey[100],
         floatingActionButton: FloatingActionButton(
-          onPressed: () => controller.modalBottomSheetMenu(context),
+          onPressed: () => controller.modalBottomSheetMenu(context, null),
           backgroundColor: AppColors.skipButton,
           child: const Icon(
             Icons.add,

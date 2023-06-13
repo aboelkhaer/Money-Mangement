@@ -57,14 +57,14 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   late TabController tabController;
 
-  void modalBottomSheetMenu(BuildContext context) {
+  void modalBottomSheetMenu(BuildContext context, String? defaultChoice) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
       ),
       builder: (builder) {
-        return const BottomSheetBody();
+        return BottomSheetBody(defaultChoice);
       },
     );
   }
