@@ -47,27 +47,46 @@ class CategoriesScreen extends GetView<CategoriesController> {
                           ),
                         ),
                 ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  margin: const EdgeInsets.only(top: 50, bottom: 20),
+                  child: const Text(
+                    'Your categories:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
                 Expanded(
                   child: Obx(
                     () => ListView.builder(
                       itemCount: controller.argumentData.length,
                       itemBuilder: (context, index) {
-                        // var sortedList = controller.argumentData.sort((a,b)=> a.date!.compareTo(b.date!));
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(controller.argumentData[index].name!),
-                            GestureDetector(
-                              onTap: () {
-                                controller.deleteCategory(
-                                    controller.argumentData[index].id!);
-                              },
-                              child: const Icon(
-                                Icons.delete,
-                                color: Colors.red,
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            child: Container(
+                              margin: const EdgeInsets.all(16),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(controller.argumentData[index].name!),
+                                  GestureDetector(
+                                    onTap: () {
+                                      controller.deleteCategory(
+                                          controller.argumentData[index].id!);
+                                    },
+                                    child: const Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                          ),
                         );
                       },
                     ),
